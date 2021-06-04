@@ -1,14 +1,16 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
-	libcron "github.com/lisijie/cron"
-	"github.com/lisijie/webcron/app/jobs"
-	"github.com/lisijie/webcron/app/libs"
-	"github.com/lisijie/webcron/app/models"
+	"example-webcron/app/jobs"
+	"example-webcron/app/models"
 	"strconv"
 	"strings"
 	"time"
+
+	"example-webcron/app/libs"
+
+	"github.com/astaxie/beego"
+	libcron "github.com/lisijie/cron"
 )
 
 type TaskController struct {
@@ -22,11 +24,11 @@ func (this *TaskController) List() {
 		page = 1
 	}
 	groupId, _ := this.GetInt("groupid")
-	filters := make([]interface{}, 0)
+	filterMap := make(map[string]interface{})
 	if groupId > 0 {
-		filters = append(filters, "group_id", groupId)
+		filterMap["group_id"] = groupId
 	}
-	result, count := models.TaskGetList(page, this.pageSize, filters...)
+	result, count := models.TaskGetList(page, this.pageSize, filterMap)
 
 	list := make([]map[string]interface{}, len(result))
 	for k, v := range result {

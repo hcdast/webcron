@@ -1,15 +1,17 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/utils"
-	"github.com/lisijie/webcron/app/jobs"
-	"github.com/lisijie/webcron/app/libs"
-	"github.com/lisijie/webcron/app/models"
+	"example-webcron/app/models"
 	"runtime"
 	"strconv"
 	"strings"
 	"time"
+
+	"example-webcron/app/jobs"
+	"example-webcron/app/libs"
+
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/utils"
 )
 
 type MainController struct {

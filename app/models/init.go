@@ -1,10 +1,18 @@
+/*
+ * @Author: hc
+ * @Date: 2021-06-01 15:28:28
+ * @LastEditors: hc
+ * @LastEditTime: 2021-06-01 16:07:46
+ * @Description: mysql 数据库初始化
+ */
 package models
 
 import (
+	"net/url"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"net/url"
 )
 
 func Init() {

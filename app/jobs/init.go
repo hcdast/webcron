@@ -1,15 +1,25 @@
+/*
+ * @Author: hc
+ * @Date: 2021-06-01 15:28:28
+ * @LastEditors: hc
+ * @LastEditTime: 2021-06-03 10:32:31
+ * @Description:
+ */
 package jobs
 
 import (
+	"example-webcron/app/models"
 	"fmt"
-	"github.com/astaxie/beego"
-	"github.com/lisijie/webcron/app/models"
 	"os/exec"
 	"time"
+
+	"github.com/astaxie/beego"
 )
 
 func InitJobs() {
-	list, _ := models.TaskGetList(1, 1000000, "status", 1)
+	condition := make(map[string]interface{})
+	condition["status"] = 1
+	list, _ := models.TaskGetList(1, 1000000, condition)
 	for _, task := range list {
 		job, err := NewJobFromTask(task)
 		if err != nil {

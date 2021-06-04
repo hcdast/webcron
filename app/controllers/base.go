@@ -1,11 +1,13 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/lisijie/webcron/app/libs"
-	"github.com/lisijie/webcron/app/models"
+	"example-webcron/app/models"
 	"strconv"
 	"strings"
+
+	"example-webcron/app/libs"
+
+	"github.com/astaxie/beego"
 )
 
 const (

@@ -1,19 +1,31 @@
+/*
+ * @Author: hc
+ * @Date: 2021-06-01 15:28:28
+ * @LastEditors: hc
+ * @LastEditTime: 2021-06-01 17:29:54
+ * @Description: 主程序
+ */
 package main
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/lisijie/webcron/app/controllers"
-	"github.com/lisijie/webcron/app/jobs"
-	_ "github.com/lisijie/webcron/app/mail"
-	"github.com/lisijie/webcron/app/models"
+	"example-webcron/app/jobs"
+	"example-webcron/app/models"
 	"html/template"
 	"net/http"
+
+	_ "example-webcron/app/mail"
+
+	"example-webcron/app/controllers"
+
+	"github.com/astaxie/beego"
 )
 
-const VERSION = "1.0.0"
+// const VERSION = "1.0.0"
 
 func main() {
+	// 数据库初始化
 	models.Init()
+	// 初始化任务
 	jobs.InitJobs()
 
 	// 设置默认404页面
@@ -28,7 +40,7 @@ func main() {
 	if beego.AppConfig.String("runmode") == "prod" {
 		beego.SetLevel(beego.LevelInformational)
 	}
-	beego.AppConfig.Set("version", VERSION)
+	// beego.AppConfig.Set("version", VERSION)
 
 	// 路由设置
 	beego.Router("/", &controllers.MainController{}, "*:Index")

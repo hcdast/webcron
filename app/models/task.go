@@ -2,8 +2,9 @@ package models
 
 import (
 	"fmt"
-	"github.com/astaxie/beego/orm"
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 const (
@@ -58,18 +59,17 @@ func TaskAdd(task *Task) (int64, error) {
 	return orm.NewOrm().Insert(task)
 }
 
-func TaskGetList(page, pageSize int, filters ...interface{}) ([]*Task, int64) {
+// 获取任务列表
+func TaskGetList(page, pageSize int, filterOpt map[string]interface{}) ([]*Task, int64) {
 	offset := (page - 1) * pageSize
-
 	tasks := make([]*Task, 0)
-
 	query := orm.NewOrm().QueryTable(TableName("task"))
-	if len(filters) > 0 {
-		l := len(filters)
-		for k := 0; k < l; k += 2 {
-			query = query.Filter(filters[k].(string), filters[k+1])
+	for k, v := range filterOpt {
+		if k == "status" {
+			query = query.Filter(k, v.(int))
 		}
 	}
+
 	total, _ := query.Count()
 	query.OrderBy("-id").Limit(pageSize, offset).All(&tasks)
 
